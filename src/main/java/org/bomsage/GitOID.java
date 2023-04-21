@@ -2,8 +2,8 @@ package org.bomsage;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HexFormat;
-
+// import java.util.HexFormat;
+import java.math.BigInteger;
 /**
  * A set of utilities that computes gitoids
  */
@@ -100,6 +100,11 @@ public class GitOID {
     final HashType hashType;
     final byte[] bytes;
 
+    public static String toHex(byte[] bytes) {
+	   BigInteger bi = new BigInteger(1, bytes);
+	  return bi.toString(16); 
+    }
+
     /**
      * Construct a new GitOID instance
      * 
@@ -128,7 +133,7 @@ public class GitOID {
      * @return the gitoid
      */
     public String gitOidAsHex() {
-        return HexFormat.of().formatHex(gitOid());
+        return toHex(gitOid()); // HexFormat.of().formatHex(gitOid());
     }
 
     /**
@@ -150,7 +155,7 @@ public class GitOID {
      * @return The hex representing the hash of the bytes
      */
     public String hashAsHex() {
-        return HexFormat.of().formatHex(hash());
+        return toHex(hash()); // HexFormat.of().formatHex(hash());
     }
 
     /**
